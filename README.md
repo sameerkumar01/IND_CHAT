@@ -2,7 +2,7 @@
 
 A portfolio-scoped assistant for Indian-context domain questions, built around QLoRA fine-tuning of a small open-weight language model.
 
-> **Status:** Project scaffold / Phase 0. The repository structure and reproducible configuration are being established before data collection and GPU training.
+> **Status:** Phase 1 complete. Dataset validation and QLoRA training implementation are in place; the current GST corpus is a pilot dataset and requires expansion before final benchmarking.
 >
 > **Safety:** Outputs are for demonstration and research only. They are not legal, tax, financial, or professional advice.
 
