@@ -1,5 +1,5 @@
 model_name: Qwen/Qwen2.5-7B-Instruct
-adapter_dir: models/final/adapter
+adapter_dir: models/final/adapter-v1.1
 eval_dataset: data/processed/v1.1/eval.jsonl
 output_dir: data/eval_outputs
 generation:
