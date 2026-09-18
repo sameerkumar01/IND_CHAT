@@ -1,6 +1,6 @@
 model_name: Qwen/Qwen2.5-7B-Instruct
 adapter_dir: models/final/adapter
-eval_dataset: data/processed/v1.0/eval.jsonl
+eval_dataset: data/processed/v1.1/eval.jsonl
 output_dir: data/eval_outputs
 generation:
   temperature: 0.2

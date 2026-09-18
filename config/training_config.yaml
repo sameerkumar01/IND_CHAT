@@ -11,6 +11,7 @@ lora:
   dropout: 0.05
   target_modules: [q_proj, k_proj, v_proj, o_proj]
 training:
+  dataset_dir: data/processed/v1.1
   output_dir: models/checkpoints
   final_adapter_dir: models/final/adapter
   final_merged_dir: models/final/merged

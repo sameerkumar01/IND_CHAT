@@ -156,7 +156,7 @@ def train(config_path: str) -> None:
     model = prepare_model_for_kbit_training(model)
     validate_target_modules(model, list(config["lora"]["target_modules"]))
 
-    processed_dir = Path("data/processed/v1.0")
+    processed_dir = Path(str(training.get("dataset_dir", "data/processed/v1.0")))
     train_dataset = prepare_dataset(str(processed_dir / "train.jsonl"), tokenizer)
     validation_dataset = prepare_dataset(str(processed_dir / "val.jsonl"), tokenizer)
     if len(train_dataset) == 0 or len(validation_dataset) == 0:

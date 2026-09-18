@@ -34,3 +34,12 @@ In the notebook settings, select a GPU accelerator and enable Internet when you 
 ```
 
 The repo's training config starts with `Qwen/Qwen2.5-7B-Instruct`, NF4 4-bit loading, LoRA rank 16, alpha 32, batch size 1, gradient accumulation 8, and sequence length 2048. Reduce sequence length or accumulation first if the selected Kaggle GPU runs out of memory.
+
+
+## Additional official corpus sources
+
+- [CBIC sectoral FAQs](https://cbic-gst.gov.in/sectoral-faq.html)
+- [CBIC composition levy FAQ PDF](https://cbic-gst.gov.in/pdf/faq-manual/faq-composition-levy-revised.pdf)
+- [CBIC GST FAQ, second edition PDF](https://cbic-gst.gov.in/pdf/new-faq-on-gst-second-edition.pdf)
+- [GST tutorial sitemap](https://tutorial.gst.gov.in/sitemap.xml)
+- [Official e-invoice FAQs](https://einvoice.gst.gov.in/faqs)
