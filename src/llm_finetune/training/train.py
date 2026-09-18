@@ -14,6 +14,10 @@ from datasets import Dataset, load_dataset
 from peft import prepare_model_for_kbit_training
 from transformers import AutoModelForCausalLM, AutoTokenizer, TrainingArguments, set_seed
 from trl import SFTTrainer
+try:
+    from trl import SFTConfig
+except ImportError:  # pragma: no cover - compatibility with older TRL releases
+    SFTConfig = None
 
 from llm_finetune.training.callbacks import FiniteLossCallback
 from llm_finetune.training.lora_setup import (
@@ -54,7 +58,12 @@ def find_last_checkpoint(output_dir: Path) -> str | None:
 
 
 def build_training_arguments(config: dict[str, Any], output_dir: Path) -> TrainingArguments:
-    """Build version-compatible training arguments."""
+    """Build version-compatible training arguments.
+
+    Newer TRL releases default to a chunked cross-entropy patch that is
+    incompatible with some Qwen forward wrappers. We explicitly select the
+    mathematically equivalent standard NLL path when the option is available.
+    """
     training = config["training"]
     use_bf16 = torch.cuda.is_available() and torch.cuda.is_bf16_supported()
     arguments = {
@@ -78,6 +87,13 @@ def build_training_arguments(config: dict[str, Any], output_dir: Path) -> Traini
     training_argument_names = inspect.signature(TrainingArguments.__init__).parameters
     evaluation_key = "eval_strategy" if "eval_strategy" in training_argument_names else "evaluation_strategy"
     arguments[evaluation_key] = "steps"
+    if SFTConfig is not None:
+        sft_argument_names = inspect.signature(SFTConfig.__init__).parameters
+        if "loss_type" in sft_argument_names:
+            arguments["loss_type"] = "nll"
+        if "max_length" in sft_argument_names:
+            arguments["max_length"] = int(training["max_seq_length"])
+        return SFTConfig(**arguments)
     return TrainingArguments(**arguments)
 
 
