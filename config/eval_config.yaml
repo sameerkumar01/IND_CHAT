@@ -1,0 +1,6 @@
+eval_dataset: data/processed/v1.0/eval.jsonl
+output_dir: data/eval_outputs
+manual_review_samples: 25
+metrics: [rougeL, exact_match]
+judge_prompt: src/llm_finetune/evaluation/prompts/judge_rubric.md
+seed: 42

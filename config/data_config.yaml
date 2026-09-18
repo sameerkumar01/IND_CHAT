@@ -1,0 +1,16 @@
+domain: indian_gst
+data_version: v1.0
+source_dirs:
+  raw: data/raw
+  interim: data/interim
+  processed: data/processed/v1.0
+split:
+  train: 0.8
+  validation: 0.1
+  eval: 0.1
+validation:
+  min_output_chars: 10
+  max_sequence_length: 2048
+  near_duplicate_threshold: 0.92
+pii_redaction: true
+seed: 42
