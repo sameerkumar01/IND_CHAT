@@ -1,6 +1,13 @@
+model_name: Qwen/Qwen2.5-7B-Instruct
+adapter_dir: models/final/adapter
 eval_dataset: data/processed/v1.0/eval.jsonl
 output_dir: data/eval_outputs
-manual_review_samples: 25
-metrics: [rougeL, exact_match]
-judge_prompt: src/llm_finetune/evaluation/prompts/judge_rubric.md
+generation:
+  temperature: 0.2
+  top_p: 0.9
+  max_new_tokens: 256
+quantization:
+  load_in_4bit: true
+  quant_type: nf4
+  compute_dtype: float16
 seed: 42
