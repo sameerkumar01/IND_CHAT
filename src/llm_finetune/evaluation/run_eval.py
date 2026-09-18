@@ -29,24 +29,27 @@ def load_records(path: Path) -> list[dict[str, Any]]:
 
 def generate_answer(model: Any, tokenizer: Any, messages: list[dict[str, str]], config: dict[str, Any]) -> str:
     """Generate one answer from a loaded model."""
-    inputs = tokenizer.apply_chat_template(
+    encoded = tokenizer.apply_chat_template(
         messages[:1],
         tokenize=True,
         add_generation_prompt=True,
         return_tensors="pt",
+        return_dict=True,
     )
-    inputs = inputs.to(next(model.parameters()).device)
+    device = next(model.parameters()).device
+    encoded = {key: value.to(device) for key, value in encoded.items()}
+    input_ids = encoded["input_ids"]
     generation = config["generation"]
     with torch.inference_mode():
         output = model.generate(
-            input_ids=inputs,
+            **encoded,
             max_new_tokens=int(generation["max_new_tokens"]),
             temperature=float(generation["temperature"]),
             top_p=float(generation["top_p"]),
             do_sample=float(generation["temperature"]) > 0,
             pad_token_id=tokenizer.pad_token_id,
         )
-    new_tokens = output[0, inputs.shape[1] :]
+    new_tokens = output[0, input_ids.shape[1] :]
     return tokenizer.decode(new_tokens, skip_special_tokens=True).strip()
 
 
