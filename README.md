@@ -104,3 +104,9 @@ Evaluation numbers will be added after the first reproducible training and evalu
 ## License
 
 Apache License 2.0. See [`LICENSE`](LICENSE).
+
+## Learning and source resources
+
+See [`docs/resources.md`](docs/resources.md) for official GST references, the Qwen model card, Hugging Face QLoRA documentation, and Kaggle notebook links.
+
+For the Kaggle-specific workflow, see [`docs/kaggle_setup.md`](docs/kaggle_setup.md).
